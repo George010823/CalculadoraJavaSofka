@@ -1,11 +1,28 @@
 import java.util.Scanner;
-
+/**
+ * Programación de una calculadora por consola donde se puede seguir realizando la ooperacion que se 
+ * desee con el resultado obtenido
+ * @author Jorge Gomez
+ *
+ */
 public class CalculadoraXConsola {
-	
+	/**
+	 * Se instancia la clase scanner para la captura de datos por consola
+	 */
     static Scanner scanner = new Scanner(System.in);
-    
+    /**
+     * Declaracion de la clase principal main para la ejecución del programa
+     * 
+     */
     public static void main(String[] args) {
-    	
+    	/**
+    	 * Declaración de variables.
+    	 * @params validador variable booleana para que la calculadora trabaje de forma continua.
+    	 * @params numero1 Primer operando de la calculadora.
+    	 * @params numero2 Segundo operando de la calculadora.
+    	 * @params operador variable que indica la operación a realizar entro los operandos.
+    	 * @params result Variable que almacena el ultimo valor para seguir operando con ella.
+    	 */
     	boolean validador = true;
         double numero1 = obtenerNumero();
         char operador = obtenerOperador();
@@ -13,7 +30,9 @@ public class CalculadoraXConsola {
         double result = calc(numero1,numero2,operador);
         
         System.out.println("El resultado de la operación: "+result);
-        
+        /**
+         * Ciclo que permite que la calculadora trabaje continuamente. Y mostrar su resultado.
+         */
         while(validador == true) {
         	operador = obtenerOperador();
             numero2 = obtenerNumero();
@@ -23,7 +42,10 @@ public class CalculadoraXConsola {
         }
     }
     
-
+/**
+ * Obtener los números digitados por el usuario y valida que si sea un número.
+ * @return El número digitado.
+ */
     public static double obtenerNumero(){
         System.out.println("Introduzca un número:");
         double num;
@@ -36,7 +58,10 @@ public class CalculadoraXConsola {
         }
         return num;
     }
-    
+    /**
+     * Obtener el operador digitado por el usuario validando qeu sea el primer caracter de la cadena.
+     * @return De ser valido el simbolo para realizar la operación.
+     */
     public static char obtenerOperador(){
         System.out.println("Introduzca el operador:");
         char operador;
@@ -49,29 +74,52 @@ public class CalculadoraXConsola {
         }
         return operador;
     }
-    
+    /**
+     * Metodo y Ciclo que validan el tipo de operación a realizar, realiza la operación y devuleve el resultado.
+     * @param num1 Primer operando de la calculadora.
+     * @param num2 Segundo operando de la calculadora.
+     * @param operador simbolo para realizar la operación.
+     * @return
+     */
     public static double calc(double num1, double num2, char operador){
         double result;        
         while (true) {
+        	/**
+        	 * Seún el simbolo de operador entrgado, selecciona uno de los casos expuestos y realiza la operación.
+        	 */
         	switch (operador){
+        	/**
+        	 * Este caso realiza la suma.
+        	 */
             case '+':
                 result = num1+num2;
                 break;
+                /**
+            	 * Este caso realiza la resta.
+            	 */
             case '-':
                 result = num1-num2;
                 break;
+                /**
+            	 * Este caso realiza la multiplicación.
+            	 */
             case '*':
                 result = num1*num2;
                 break;
+                /**
+            	 * Este caso realiza el modulo de la division.
+            	 */
             case '%':
                 result = num1%num2;
                 break;
+                /**
+                 * @throws Lanza un mensaje cuando se intenta dividir por cero
+                 * Este caso realiza la division.
+                 */
             case '/':
             	result = num1/num2;
             	if(Double.isInfinite(result)) {
-            		result = num1/1;
-            		System.out.println("No se puede realizar division por cero.");
-            		System.out.println("Debe seguir trabajando con el ultimo resultado obtenido.");
+            		throw new ArithmeticException("No se puede realizar division por cero.");
             	}
             	break;
             default:
